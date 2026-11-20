@@ -2,6 +2,8 @@ package com.checkpointgames.checkpoint_games.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -45,6 +47,7 @@ public class Product {
     @Column(nullable = false)
     private String imageUrl;
 
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate releaseDate;
 
     @Column(nullable = false, updatable = false)
