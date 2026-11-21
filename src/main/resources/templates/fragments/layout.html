@@ -11,12 +11,16 @@
 <nav th:fragment="navbar" class="navbar navbar-expand-lg border-bottom">
     <div class="container">
         <a class="navbar-brand fw-bold" th:href="@{/}">Checkpoint Games</a>
-        <!-- add the links here: Home (/), Shop (/products), Add Product (/products/new), About (/about), Brands & Platforms (/info) -->
+        <a class="nav-brand fw-bold" th:href="@{/}">Home</a>
+        <a class="nav-brand fw-bold" th:href="@{/products}">Shop</a>
+        <a class="nav-brand fw-bold" th:href="@{//products/new}">Add Product</a>
+        <a class="nav-brand fw-bold" th:href="@{/about}">About</a>
+        <a class="nav-brand fw-bold" th:href="@{/info}">Brands & Platforms</a>
     </div>
 </nav>
 
 <footer th:fragment="footer" class="border-top py-4 mt-5 text-center text-secondary">
-    <!-- footer text here -->
+    &copy; Checkpoint Games 2026
 </footer>
 
 </body>
