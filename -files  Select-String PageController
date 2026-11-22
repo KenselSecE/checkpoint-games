@@ -1,0 +1,23 @@
+*   [33m5aac695[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m Merge pull request #4 from KenselSecE/add-page-controller
+[31m|[m[32m\[m  
+[31m|[m * [33m352f9d3[m[33m ([m[1;31morigin/add-page-controller[m[33m, [m[1;32madd-page-controller[m[33m)[m Add page controller
+[31m|[m[31m/[m  
+[31m|[m *   [33mc9584f3[m[33m ([m[1;32mhome-pages[m[33m)[m Merge branch 'main' into home-pages # Please enter a commit message to explain why this merge is necessary, # especially if it merges an updated upstream into a topic branch. # # Lines starting with '#' will be ignored, and an empty message aborts # the commit.
+[31m|[m [33m|[m[31m\[m  
+[31m|[m [33m|[m[31m/[m  
+[31m|[m[31m/[m[33m|[m   
+* [33m|[m   [33m313bd0a[m Merge pull request #2 from KenselSecE/feature/product-form
+[35m|[m[36m\[m [33m\[m  
+[35m|[m * [33m|[m [33m3395975[m[33m ([m[1;31morigin/feature/product-form[m[33m, [m[1;32mfeature/product-form[m[33m)[m Add product form, validation and detail page
+[35m|[m[35m/[m [33m/[m  
+[35m|[m * [33mb3c5c47[m[33m ([m[1;31morigin/home-pages[m[33m)[m Update all pages
+[35m|[m * [33m62563bc[m Update layout page
+[35m|[m * [33me1b0620[m Add layout page
+[35m|[m[35m/[m  
+*   [33m0d113db[m Merge pull request #1 from KenselSecE/feature/entities
+[1;31m|[m[1;32m\[m  
+[1;31m|[m * [33mf4d8d41[m[33m ([m[1;31morigin/feature/entities[m[33m, [m[1;32mfeature/entities[m[33m)[m Add ProductService
+[1;31m|[m * [33mde8e8df[m Add Brand, Category and Product entities
+[1;31m|[m[1;31m/[m  
+* [33m0b44e1c[m initial spring boot skeleton
+* [33m16fb183[m Initial commit

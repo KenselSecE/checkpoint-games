@@ -7,9 +7,21 @@
     <div th:replace="~{fragments/layout :: head}"></div>
 </head>
 <body>
-    <h1>About</h1>
-    <div th:replace="~{fragments/layout :: navbar}"></div>
-    <div th:replace="~{fragments/layout :: footer}"></div>
-    <p>Our website showcases</p>
+<div th:replace="~{fragments/layout :: navbar}"></div>
+
+<main class="container py-5">
+    <h1 class="fw-bold mb-4">About Checkpoint Games</h1>
+    <p class="lead">
+        Checkpoint Games is a web store built to make it easy to find and manage video games.
+    </p>
+    <p>
+        Our catalog lets you browse games by brand and platform, sort them by price or release year,
+        and add new titles through a validated form so every listing is accurate.
+        Everything is saved to a database, so the catalog is always up to date.
+    </p>
+    <a class="btn btn-primary" th:href="@{/products}">Explore the Shop</a>
+</main>
+
+<div th:replace="~{fragments/layout :: footer}"></div>
 </body>
 </html>
