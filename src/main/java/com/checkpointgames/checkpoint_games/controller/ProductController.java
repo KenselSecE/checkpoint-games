@@ -5,6 +5,7 @@ import com.checkpointgames.checkpoint_games.model.Platform;
 import com.checkpointgames.checkpoint_games.model.Product;
 import com.checkpointgames.checkpoint_games.service.ProductService;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +22,29 @@ public class ProductController {
 
     public ProductController(ProductService productService) {
         this.productService = productService;
+    }
+
+    @GetMapping
+    public String listProducts(@RequestParam(required = false) Platform platform,
+                               @RequestParam(required = false) Long brandId,
+                               @RequestParam(required = false) Long categoryId,
+                               @RequestParam(defaultValue = "createdAt") String sortBy,
+                               @RequestParam(defaultValue = "desc") String direction,
+                               @RequestParam(defaultValue = "0") int page,
+                               Model model) {
+        Page<Product> products = productService.search(
+                platform, brandId, categoryId, sortBy, direction, page, 6);
+
+        model.addAttribute("products", products);
+        model.addAttribute("platform", platform);
+        model.addAttribute("brandId", brandId);
+        model.addAttribute("categoryId", categoryId);
+        model.addAttribute("sortBy", sortBy);
+        model.addAttribute("direction", direction);
+        model.addAttribute("platforms", Platform.values());
+        model.addAttribute("brands", productService.findAllBrands());
+        model.addAttribute("categories", productService.findAllCategories());
+        return "products";
     }
 
     @GetMapping("/new")

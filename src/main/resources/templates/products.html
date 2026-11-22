@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" data-bs-theme="dark">
+<head>
+    <title>Shop | Checkpoint Games</title>
+    <th:block th:replace="~{fragments/layout :: head}"></th:block>
+</head>
+<body>
+<div th:replace="~{fragments/layout :: navbar}"></div>
+
+<main class="container py-4">
+    <h1 class="fw-bold mb-4">Shop</h1>
+
+    <!-- Filters and sorting -->
+    <form method="get" th:action="@{/products}" class="row g-3 mb-4">
+        <div class="col-12 col-md-3">
+            <label for="platform" class="form-label">Platform</label>
+            <select id="platform" name="platform" class="form-select">
+                <option value="">All</option>
+                <option th:each="p : ${platforms}" th:value="${p}" th:text="${p}"
+                        th:selected="${platform == p}"></option>
+            </select>
+        </div>
+        <div class="col-12 col-md-3">
+            <label for="brandId" class="form-label">Brand</label>
+            <select id="brandId" name="brandId" class="form-select">
+                <option value="">All</option>
+                <option th:each="b : ${brands}" th:value="${b.id}" th:text="${b.name}"
+                        th:selected="${brandId != null and brandId == b.id}"></option>
+            </select>
+        </div>
+        <div class="col-12 col-md-3">
+            <label for="categoryId" class="form-label">Category</label>
+            <select id="categoryId" name="categoryId" class="form-select">
+                <option value="">All</option>
+                <option th:each="c : ${categories}" th:value="${c.id}" th:text="${c.name}"
+                        th:selected="${categoryId != null and categoryId == c.id}"></option>
+            </select>
+        </div>
+        <div class="col-6 col-md-2">
+            <label for="sortBy" class="form-label">Sort by</label>
+            <select id="sortBy" name="sortBy" class="form-select">
+                <option value="createdAt" th:selected="${sortBy == 'createdAt'}">Newest</option>
+                <option value="name" th:selected="${sortBy == 'name'}">Name</option>
+                <option value="price" th:selected="${sortBy == 'price'}">Price</option>
+            </select>
+        </div>
+        <div class="col-6 col-md-1">
+            <label for="direction" class="form-label">Order</label>
+            <select id="direction" name="direction" class="form-select">
+                <option value="desc" th:selected="${direction == 'desc'}">Desc</option>
+                <option value="asc" th:selected="${direction == 'asc'}">Asc</option>
+            </select>
+        </div>
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary me-2">Apply</button>
+            <a th:href="@{/products}" class="btn btn-outline-secondary">Clear</a>
+        </div>
+    </form>
+
+    <p class="text-secondary" th:text="${products.totalElements} + ' product(s) found'"></p>
+
+    <div th:if="${products.empty}" class="alert alert-info">No products match your filters.</div>
+
+    <!-- Product cards -->
+    <div class="row g-4">
+        <div class="col-12 col-sm-6 col-lg-4" th:each="p : ${products.content}">
+            <div class="card h-100">
+                <img th:src="${p.imageUrl}" class="card-img-top" th:alt="${p.name}">
+                <div class="card-body">
+                    <h2 class="h5 card-title" th:text="${p.name}"></h2>
+                    <p class="text-secondary mb-1" th:text="${p.brand.name} + ' · ' + ${p.platform}"></p>
+                    <p class="text-secondary" th:text="${p.category.name}"></p>
+                    <p class="fw-bold" th:text="'$' + ${p.price}"></p>
+                    <a th:href="@{/products/{id}(id=${p.id})}" class="stretched-link">View details</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pagination (keeps filters and sort) -->
+    <nav th:if="${products.totalPages > 1}" class="mt-4" aria-label="Product pages">
+        <ul class="pagination justify-content-center flex-wrap">
+            <li class="page-item" th:classappend="${products.first} ? 'disabled'">
+                <a class="page-link"
+                   th:href="@{/products(platform=${platform},brandId=${brandId},categoryId=${categoryId},sortBy=${sortBy},direction=${direction},page=${products.number - 1})}">Previous</a>
+            </li>
+            <li class="page-item" th:each="i : ${#numbers.sequence(0, products.totalPages - 1)}"
+                th:classappend="${i == products.number} ? 'active'">
+                <a class="page-link" th:text="${i + 1}"
+                   th:href="@{/products(platform=${platform},brandId=${brandId},categoryId=${categoryId},sortBy=${sortBy},direction=${direction},page=${i})}"></a>
+            </li>
+            <li class="page-item" th:classappend="${products.last} ? 'disabled'">
+                <a class="page-link"
+                   th:href="@{/products(platform=${platform},brandId=${brandId},categoryId=${categoryId},sortBy=${sortBy},direction=${direction},page=${products.number + 1})}">Next</a>
+            </li>
+        </ul>
+    </nav>
+</main>
+
+<div th:replace="~{fragments/layout :: footer}"></div>
+</body>
+</html>
