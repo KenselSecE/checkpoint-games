@@ -35,7 +35,17 @@ public class SecurityConfig {
                         // Everything else requires login
                         .anyRequest().authenticated()
                 )
-                .formLogin(Customizer.withDefaults());   // default login page for now
-        return http.build();
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .defaultSuccessUrl("/")
+                        .permitAll()
+                )
+                .logout(logout -> logout
+                        .logoutSuccessUrl("/login?logout")
+                        .permitAll()
+                )
+                .exceptionHandling(ex -> ex
+                        .accessDeniedPage("/access-denied")
+                );        return http.build();
     }
 }
