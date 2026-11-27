@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<nav th:fragment="adminNav" class="navbar navbar-expand bg-danger-subtle border-bottom border-danger mb-4">
+    <div class="container">
+        <span class="navbar-brand fw-bold text-danger">ADMIN AREA</span>
+        <div class="navbar-nav me-auto">
+            <a class="nav-link" th:href="@{/admin}">Dashboard</a>
+            <a class="nav-link" th:href="@{/admin/products}">Products</a>
+            <a class="nav-link" th:href="@{/admin/users}">Users</a>
+        </div>
+        <a class="btn btn-sm btn-outline-secondary" th:href="@{/}">Back to store</a>
+    </div>
+</nav>
+</body>
+</html>
