@@ -11,8 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/products")
@@ -46,6 +46,7 @@ public class ProductController {
         model.addAttribute("categories", productService.findAllCategories());
         return "products";
     }
+
 
     @GetMapping("/new")
     public String showCreateForm(Model model) {
@@ -83,6 +84,44 @@ public class ProductController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found"));
         model.addAttribute("product", product);
         return "product-detail";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String showEditForm(@PathVariable Long id, Model model) {
+        Product product = productService.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found"));
+        model.addAttribute("product", product);
+        addFormOptions(model);
+        return "product-form";
+    }
+
+    @PostMapping("/{id}/edit")
+    public String updateProduct(@PathVariable Long id,
+                                @Valid @ModelAttribute("product") Product product,
+                                BindingResult result,
+                                Model model,
+                                RedirectAttributes redirectAttributes) {
+        product.setId(id);   // keeps the form in "edit mode" if there are errors
+        checkSelections(product, result);
+
+        if (result.hasErrors()) {
+            addFormOptions(model);
+            return "product-form";
+        }
+
+        productService.update(id, product);
+        redirectAttributes.addFlashAttribute("successMessage", "Product updated successfully!");
+        return "redirect:/products/" + id;
+    }
+
+    // A dropdown left on "-- Select --" still creates an empty Brand/Category object
+    private void checkSelections(Product product, BindingResult result) {
+        if (product.getBrand() == null || product.getBrand().getId() == null) {
+            result.rejectValue("brand", "required", "Please select a brand");
+        }
+        if (product.getCategory() == null || product.getCategory().getId() == null) {
+            result.rejectValue("category", "required", "Please select a category");
+        }
     }
 
     private void addFormOptions(Model model) {
