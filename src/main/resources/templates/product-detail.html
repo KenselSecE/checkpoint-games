@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" data-bs-theme="dark">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" data-bs-theme="dark" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -28,6 +28,7 @@
             </ul>
             <a th:href="@{/products/new}" class="btn btn-success">Add another product</a>
             <a th:href="@{/products}" class="btn btn-outline-secondary">Back to catalog</a>
+            <a sec:authorize="hasAnyRole('STAFF','ADMIN')" th:href="@{/products/{id}/edit(id=${product.id})}" class="btn btn-outline-warning">Edit</a>
         </div>
     </div>
 </div>
